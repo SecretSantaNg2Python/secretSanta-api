@@ -23,10 +23,10 @@ class User(Model):
         email = email.lower()
         try:
             cls.select().where(
-                (cls.email == email)
+                (cls.email == email) | (cls.username**username)
             ).get()
         except cls.DoesNotExist:
-            user = cls(email=email)
+            user = cls(username=username, email=email)
             user.password = user.set_password(password)
             user.save()
             return user
@@ -54,6 +54,10 @@ class User(Model):
     def generate_auth_token(self, expires=3600):
         serializer = Serializer(config.SECRET_KEY, expires_in=expires)
         return serializer.dumps({'id': self.id})
+
+
+
+
 
 def initialize():
     DATABASE.connect()
