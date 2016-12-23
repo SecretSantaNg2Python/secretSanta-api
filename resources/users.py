@@ -10,6 +10,8 @@ import models
 
 user_fields = {
     'username': fields.String,
+    'email': fields.String,
+    'id': fields.String,
 }
 
 
