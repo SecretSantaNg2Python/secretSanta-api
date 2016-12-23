@@ -1,0 +1,22 @@
+{
+	"endpoints": {
+		"users": {
+			"post": {
+				"request": {
+					"username": "string",
+					"email": "string",
+					"password": "string",
+					"verify_password": "string"
+				},
+				"response": {
+					"token": "string",
+					"user": {
+						"username": "string",
+						"id": "string",
+						"email": "string"
+					}
+				}
+			}
+		}
+	}
+}
