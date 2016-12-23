@@ -1,7 +1,23 @@
 {
+	"url": "http://localhost:8000/api/v1/",
 	"endpoints": {
 		"users": {
+			"get": {
+				"description": "return all registered users",
+				"request": {},
+				"response": {
+					"users": [
+						{
+							"email": "string",
+							"id": "string",
+							"username": "string"
+						}
+					]
+				}
+
+			},
 			"post": {
+				"description": "Register a new user",
 				"request": {
 					"username": "string",
 					"email": "string",
@@ -18,5 +34,5 @@
 				}
 			}
 		}
-	}
+	},
 }
