@@ -7,6 +7,7 @@ from flask_restful import (Resource, Api, reqparse,
                                marshal_with, url_for)
 
 import models
+import auth
 
 user_fields = {
     'username': fields.String,
@@ -48,7 +49,11 @@ class UserList(Resource):
         args = self.reqparse.parse_args()
         if args['password'] == args['verify_password']:
             user = models.User.create_user(**args)
-            return marshal(user, user_fields), 201
+            token = user.generate_auth_token()
+            return {
+                'user': marshal(user, user_fields), 
+                'token': token.decode('ascii')
+                }, 201
         return make_response(
             json.dumps({
                 'error': 'Password and password verification do not match'
