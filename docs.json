@@ -14,7 +14,6 @@
 						}
 					]
 				}
-
 			},
 			"post": {
 				"description": "Register a new user",
@@ -33,6 +32,57 @@
 					}
 				}
 			}
+		},
+		"user": {
+			"get /:id":{
+				"description": "returns a user, like if there's an existing token in the browser",
+				"request": {},
+				"response": {
+					"user": {
+						"email": "string",
+						"id": "string",
+						"username": "string"
+					}
+				}
+			},
+			"post": {
+				"description": "login user",
+				"request": {
+					"email": "string",
+					"password": "password"
+				},
+				"response": {
+					"user": {
+						"email": "string",
+						"id": "string",
+						"username": "string"
+					}
+				}
+			},
+			"put /:id": {
+				"description": "change username, password, email",
+				"request": {
+					"username": "string",
+					"email": "string",
+					"current_password": "string",
+					"password": "string",
+					"verify_password": "string"
+				},
+				"response": {
+					"user": {
+						"email": "string",
+						"id": "string",
+						"username": "string"
+					}
+				}
+			},
+			"delete /:id": {
+				"description": "delete user instance",
+				"request": {},
+				"response": {
+					"id": "string"
+				}
+			}
 		}
-	},
+	}
 }
