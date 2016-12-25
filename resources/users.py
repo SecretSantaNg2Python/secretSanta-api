@@ -16,6 +16,7 @@ user_fields = {
     'id': fields.String,
 }
 
+
 def user_or_404(user_id):
     try:
         user = models.User.get(models.User.id == user_id)
