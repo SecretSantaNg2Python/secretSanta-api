@@ -1,3 +1,10 @@
 secretsanta.sqlite
 .DS_Store
 __pycache__/
+.idea
+.vscode
+.idea/dbnavigator.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/secretSanta-api.iml
+.idea/workspace.xml
