@@ -10,6 +10,7 @@ import config
 DATABASE = SqliteDatabase('secretsanta.sqlite')
 HASHER = PasswordHasher()
 
+
 class User(Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
