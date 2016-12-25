@@ -56,9 +56,6 @@ class User(Model):
         return serializer.dumps({'id': self.id})
 
 
-
-
-
 def initialize():
     DATABASE.connect()
     DATABASE.create_tables([User], safe=True)
