@@ -1,13 +1,14 @@
 import json
+import models
+import logging
+from argon2 import exceptions
 
-from flask import jsonify, Blueprint, abort, make_response
-
+from flask import jsonify, Blueprint, abort, make_response, g
 from flask_restful import (Resource, Api, reqparse,
                                inputs, fields, marshal,
                                marshal_with, url_for)
 
-import models
-from auth import auth
+from auth import auth, verify_password
 
 user_fields = {
     'username': fields.String,
@@ -54,10 +55,12 @@ class UserList(Resource):
         super().__init__()
 
     def get(self):
+        """Return a list of all the users"""
         users = [marshal(user, user_fields) for user in models.User.select()]
         return {'users': users}
 
     def post(self):
+        """For user registration, also logs the user in by generating the auth token"""
         args = self.reqparse.parse_args()
         if args['password'] == args['verify_password']:
             user = models.User.create_user(**args)
@@ -70,6 +73,7 @@ class UserList(Resource):
             json.dumps({
                 'error': 'Password and password verification do not match'
             }), 400)
+
 
 class User(Resource):
     def __init__(self):
@@ -106,8 +110,33 @@ class User(Resource):
         return user_or_404(id)
     
     def post(self):
-        pass
-    
+        """For existing users to log in, response sends back the user object and token"""
+        args = self.reqparse.parse_args()
+        if args['email'] and args['password']:
+            email = args['email']
+            password = args['password']
+            user_exists = verify_password(email, password)
+            if user_exists:
+                token = g.user.generate_auth_token()
+                return {
+                           'user': {
+                               'username': g.user.username,
+                               'id': g.user.id,
+                               'email': g.user.email
+                           },
+                           'token': token.decode('ascii')
+                       }, 201
+            else:
+                return make_response(
+                    json.dumps({
+                        'error': 'Email and password, please register as a new user'
+                    }), 400)
+        else:
+            return make_response(
+                json.dumps({
+                    'error': 'missing email field or password field in request'
+                }), 400)
+
     @auth.login_required
     def put(self):
         pass
@@ -125,6 +154,7 @@ api.add_resource(
 )
 api.add_resource(
     User,
+    '/user',
     '/user/<int:id>',
     endpoint='user'
 )
