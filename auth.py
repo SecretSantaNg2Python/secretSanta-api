@@ -2,6 +2,8 @@ from flask import g
 
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
 
+from argon2 import exceptions
+
 import models
 
 basic_auth = HTTPBasicAuth()
@@ -19,6 +21,8 @@ def verify_password(email_or_username, password):
         if not user.verify_password(password):
             return False
     except models.User.DoesNotExist:
+        return False
+    except exceptions.VerifyMismatchError:
         return False
     else:
         g.user = user
