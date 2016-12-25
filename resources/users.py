@@ -106,6 +106,7 @@ class User(Resource):
         )
         super().__init__()
 
+    @auth.login_required
     @marshal_with(user_fields)
     def get(self, id):
         return user_or_404(id)
@@ -139,8 +140,15 @@ class User(Resource):
                 }), 400)
 
     @auth.login_required
-    def put(self):
-        pass
+    def put(self, id):
+        """update user object"""
+        """currently throwing key error, need to add docs for how to apply token in the request"""
+        # args = self.reqparse.parse_args()
+        # query = models.User.update(**args).where(models.User.id == id)
+        # query.execute()
+        # return ({
+        #     'user': models.User.get(models.User.id == id)
+        # }, 200)
 
     @auth.login_required
     def delete(self):
