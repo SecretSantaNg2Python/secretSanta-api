@@ -3,6 +3,8 @@ from flask import g
 from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth, MultiAuth
 
 from argon2 import exceptions
+# may need to switch to argon2_cffi, exceptions isn't showing up in this
+
 
 import models
 

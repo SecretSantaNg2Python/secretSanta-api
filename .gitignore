@@ -8,3 +8,5 @@ __pycache__/
 .idea/modules.xml
 .idea/secretSanta-api.iml
 .idea/workspace.xml
+config.py
+env

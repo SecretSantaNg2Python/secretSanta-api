@@ -1,8 +1,5 @@
 from flask import Flask, g, jsonify
 
-from flask_limiter import Limiter
-from flask_limiter.util import get_ipaddr
-
 from auth import auth
 import config
 import models

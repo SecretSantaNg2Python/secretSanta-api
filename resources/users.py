@@ -1,6 +1,5 @@
 import json
 import models
-import logging
 from argon2 import exceptions
 
 from flask import jsonify, Blueprint, abort, make_response, g
@@ -67,7 +66,7 @@ class UserList(Resource):
             user = models.User.create_user(**args)
             token = user.generate_auth_token()
             return {
-                'user': marshal(user, user_fields), 
+                'user': marshal(user, user_fields),
                 'token': token.decode('ascii')
                 }, 201
         return make_response(
@@ -110,7 +109,7 @@ class User(Resource):
     @marshal_with(user_fields)
     def get(self, id):
         return user_or_404(id)
-    
+
     def post(self):
         """For existing users to log in, response sends back the user object and token"""
         args = self.reqparse.parse_args()
