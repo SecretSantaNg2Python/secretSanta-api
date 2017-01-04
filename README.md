@@ -16,6 +16,5 @@ To start up again, if no changes have been made on the api, run steps 3 and 5 ag
 To make changes on api, like if modules were added:
 1. you should already be in the virtual env
 2. install any new packages
-To download the dependencies, run `pip install -r requirements.txt`
-
-To start the app, run `python app.py`
+3. `pip freeze > requirements.txt`
+4. make the commit and push up to the remote, and remind front-end to run step 4 again.
