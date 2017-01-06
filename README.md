@@ -14,6 +14,7 @@ To close the virtual environment, run `deactivate`
 To start up again, if no changes have been made on the api, run steps 3 and 5 again.
 
 To make changes on api, like if modules were added:
+
 1. you should already be in the virtual env
 2. install any new packages
 3. `pip freeze > requirements.txt`
