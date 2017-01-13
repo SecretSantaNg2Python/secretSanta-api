@@ -4,6 +4,7 @@
 		"users": {
 			"get": {
 				"description": "return all registered users",
+				"working": true,
 				"request": {},
 				"response": {
 					"users": [
@@ -17,6 +18,7 @@
 			},
 			"post": {
 				"description": "Register a new user",
+                "working": true,
 				"request": {
 					"username": "string",
 					"email": "string",
@@ -32,6 +34,8 @@
 					}
 				},
 				"error": {
+                    "working": false,
+                    "todo": "replace exception with an error message",
 					"error": "string"
 				}
 			}
@@ -39,6 +43,10 @@
 		"user": {
 			"get /:id":{
 				"description": "returns a user, like if there's an existing token in the browser",
+                "working": true,
+                "headers": {
+                  "Authorization": "token string"
+                },
 				"request": {},
 				"response": {
 					"user": {
@@ -48,11 +56,13 @@
 					}
 				},
 				"error": {
+                    "working": true
 					"error": "string"
 				}
 			},
 			"post": {
 				"description": "login user",
+                "working": true,
 				"request": {
 					"email": "string",
 					"password": "password"
@@ -65,11 +75,17 @@
 					}
 				},
 				"error": {
+                    "working": true,
 					"error": "string"
 				}
 			},
 			"put /:id": {
 				"description": "change username, password, email",
+                "working": false,
+                "todo": "sends back 200 with null as response",
+                "headers": {
+                  "Authorization": "token string"
+                },
 				"request": {
 					"username": "string",
 					"email": "string",
@@ -85,11 +101,17 @@
 					}
 				},
 				"error": {
+                    "working": "false, send with error property in object",
 					"error": "string"
 				}
 			},
 			"delete /:id": {
 				"description": "delete user instance",
+                "working": false,
+                "todo": "delete() got an unexpected keyword argument 'id'",
+                "headers": {
+                  "Authorization": "token string"
+                },
 				"request": {},
 				"response": {
 					"id": "string"
