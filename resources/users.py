@@ -66,8 +66,10 @@ class UserList(Resource):
             user = models.User.create_user(**args)
             token = user.generate_auth_token()
             return {
-                'user': marshal(user, user_fields),
-                'token': token.decode('ascii')
+                'account': {
+                    'user': marshal(user, user_fields),
+                    'token': token.decode('ascii')
+                }
                 }, 201
         return make_response(
             json.dumps({

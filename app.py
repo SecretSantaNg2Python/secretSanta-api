@@ -1,4 +1,5 @@
 from flask import Flask, g, jsonify
+from flask_cors import CORS, cross_origin
 
 from auth import auth
 import config
@@ -8,6 +9,7 @@ from resources.users import users_api
 
 app = Flask(__name__)
 app.register_blueprint(users_api, url_prefix='/api/v1')
+CORS(app)
 
 
 @app.route('/')
