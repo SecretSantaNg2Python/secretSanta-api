@@ -118,7 +118,9 @@ class User(Resource):
             return marshal(user_or_404(id), user_fields)
         else:
             """For users that are logged in and need to persist the session"""
-            return marshal(g.user, user_fields)
+            return {
+                'user': marshal(g.user, user_fields)
+            }
 
     def post(self):
         """For existing users to log in, response sends back the user object and token"""
