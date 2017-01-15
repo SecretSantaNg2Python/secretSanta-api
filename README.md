@@ -19,3 +19,6 @@ To make changes on api, like if modules were added:
 2. install any new packages
 3. `pip freeze > requirements.txt`
 4. make the commit and push up to the remote, and remind front-end to run step 4 again.
+
+
+To drop the database: `rm secretsanta.SQLite`, then start the app again.
