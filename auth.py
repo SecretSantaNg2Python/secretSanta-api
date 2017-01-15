@@ -9,7 +9,7 @@ from argon2 import exceptions
 import models
 
 basic_auth = HTTPBasicAuth()
-token_auth = HTTPTokenAuth(scheme='Token')
+token_auth = HTTPTokenAuth(scheme='token')
 auth = MultiAuth(token_auth, basic_auth)
 
 
