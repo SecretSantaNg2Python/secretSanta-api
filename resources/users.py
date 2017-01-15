@@ -108,9 +108,17 @@ class User(Resource):
         super().__init__()
 
     @auth.login_required
-    @marshal_with(user_fields)
-    def get(self, id):
-        return user_or_404(id)
+    def get(self, id=None):
+        """
+            if id: authorized user is requesting to view other authorized users profile
+            else: authorized user refreshed the browser or navigated away from the app, and wants the session to persist
+        """
+        if id:
+            """For users to view other users profile"""
+            return marshal(user_or_404(id), user_fields)
+        else:
+            """For users that are logged in and need to persist the session"""
+            return marshal(g.user, user_fields)
 
     def post(self):
         """For existing users to log in, response sends back the user object and token"""
@@ -122,12 +130,14 @@ class User(Resource):
             if user_exists:
                 token = g.user.generate_auth_token()
                 return {
-                           'user': {
-                               'username': g.user.username,
-                               'id': g.user.id,
-                               'email': g.user.email
-                           },
-                           'token': token.decode('ascii')
+                            'account': {
+                                'user': {
+                                    'username': g.user.username,
+                                    'id': g.user.id,
+                                    'email': g.user.email
+                                },
+                                'token': token.decode('ascii')
+                            }
                        }, 201
             else:
                 return make_response(
